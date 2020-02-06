@@ -1,4 +1,4 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Rust之旅](README.md)
 
