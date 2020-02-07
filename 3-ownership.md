@@ -228,4 +228,4 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string 进入作用�
 
 幸运的是Rust给我们提供了一个功能，叫做**引用**(references)。
 
- ![t](/imgs/JOJO-TO-BE-CONTINUED.gif)
+ ![](/imgs/JOJO-TO-BE-CONTINUED.gif)
