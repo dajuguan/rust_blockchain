@@ -1,17 +1,15 @@
-enum Week {
-    WorkDay,
-    Weekend,
+mod deeply {
+    pub mod nested {
+        pub fn func() {
+            println!("called deeply nested func",);
+        }
+    }
 }
 
+use crate::deeply::nested::func;
+use crate::deeply::nested::func as other_func;
+
 fn main() {
-    let day = Week::Weekend;
-    match day {
-        Week::Weekend => println!("休息"),
-        _ => println!("干活"),
-    }
-    if let Week::Weekend = day {
-        println!("休息")
-    } else {
-        println!("干活")
-    }
+    func();
+    other_func()
 }
