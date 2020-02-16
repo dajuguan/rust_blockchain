@@ -112,6 +112,27 @@ fn main() {
 }
 ```
 
+需要注意的是，如果 match 中的匹配传入的是变量的话，匹配的是类型:
+
+```
+enum Direction {
+    Right,
+    Left,
+}
+
+fn main() {
+    let d = Direction::Right;
+    let s = Direction::Left;
+    match d {
+        (s) => return,
+        Direction::Left => println!("Left"),
+        _ => println!("other"),
+    }
+}
+```
+
+不论 s 为 Left 还是 Right，都只会匹配第一句!
+
 # 绑定值
 
 match 的一个作用是，可以把匹配到模式中的部分值绑定，这样可以实现提取枚举成员的值。
