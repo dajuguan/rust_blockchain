@@ -1,16 +1,18 @@
-# 7 函数(Functions)与闭包(Closures)
+# 7 闭包
 
-# 闭包(Closures)
+## 7 函数\(Functions\)与闭包\(Closures\)
+
+## 闭包\(Closures\)
 
 闭包类似于 JavaScript 或者 Python 中的 lamda 表达式，也就是匿名函数，通过闭包可以包含外部的变量。
 
-它的语法为:|args1,args2| 表达式或{带返回值的语句}，并且有一些其他特性:
+它的语法为:\|args1,args2\| 表达式或{带返回值的语句}，并且有一些其他特性:
 
-- 使用||而不是()来包括变量
-- 如果返回表达式,可以不适用{}
-- 能够捕捉外部环境变量
+* 使用\|\|而不是\(\)来包括变量
+* 如果返回表达式,可以不适用{}
+* 能够捕捉外部环境变量
 
-```
+```text
 fn main() {
     // Increment via closures and functions.
     fn  function            (i: i32) -> i32 { i + 1 }
@@ -36,17 +38,17 @@ fn main() {
 }
 ```
 
-# 捕捉(Capturing)
+## 捕捉\(Capturing\)
 
 闭包非常的灵活，并且可以捕捉这些变量：
 
-- 引用(&T)
-- 可变引用(&mut T)
-- 变量值(T)
+* 引用\(&T\)
+* 可变引用\(&mut T\)
+* 变量值\(T\)
 
 闭包内可以使 move 也可以是借用，但是不必要的情况下，优先选择不可变引用。
 
-```
+```text
 fn main() {
     use std::mem;
 
@@ -117,9 +119,9 @@ fn main() {
 }
 ```
 
-在**||**前方添加 move 关键字，会强制让闭包捕获捕捉变量的所有权。
+在**\|\|**前方添加 move 关键字，会强制让闭包捕获捕捉变量的所有权。
 
-```
+```text
 fn main() {
     // `Vec` has non-copy semantics.
     let haystack = vec![1, 2, 3];
@@ -140,17 +142,17 @@ fn main() {
 }
 ```
 
-# 闭包作为函数参数
+## 闭包作为函数参数
 
 闭包作为函数参数，必须给定一下形式的函数签名：
 
-- Fn:捕捉引用&T 的闭包
-- FnMut:捕捉可变引用的闭包
-- FnOnce:捕捉值的闭包
+* Fn:捕捉引用&T 的闭包
+* FnMut:捕捉可变引用的闭包
+* FnOnce:捕捉值的闭包
 
 他们这三种形式的限制是从大到小的，FnOnce 可以捕捉任意类型,Fn 只能不好做引用，FnMut 介于两者之间。
 
-```
+```text
 // A function which takes a closure as an argument and calls it.
 // <F> denotes that F is a "Generic type parameter"
 fn apply<F>(f: F) where
@@ -202,16 +204,15 @@ fn main() {
 
     println!("3 doubled: {}", apply_to_3(double));
 }
-
 ```
 
 可以看出，闭包作为函数参数必须给定**traits**的类型 Fn,FnOnce,FnMut
 
-# 函数作为参数
+## 函数作为参数
 
 既然闭包可以作为函数的参数，那么函数能够作为函数参数吗，答案是肯定的。函数的参数是闭包，只要满足 trait 的函数都可以作为参数：
 
-```
+```text
 //定义接收Fn的函数
 fn call_me<F: Fn()>(f: F) {
     f();
@@ -227,20 +228,19 @@ fn main() {
     call_me(closure); //闭包作为函数参数
     call_me(function); //函数作为参数传递
 }
-
 ```
 
-# 闭包作为函数输出
+## 闭包作为函数输出
 
 有效的闭包输出的 trait 包括：
 
-- Fn()
-- FnOnce()
-- FnMut()
+* Fn\(\)
+* FnOnce\(\)
+* FnMut\(\)
 
 同时必须使用 move 关键字，来表示闭包通过值来捕获.
 
-```
+```text
 fn create_fn() -> impl Fn() {
     let text = "Fn".to_owned();
 
@@ -268,17 +268,15 @@ fn main() {
     fn_mut();
     fn_once();
 }
-
 ```
 
-# 标准库中的闭包
+## 标准库中的闭包
 
-## Iterator::any
+### Iterator::any
 
-Iterator::any 函数接受一个闭包，它判断是否存在任一元素是否满足条件，返回布尔值.
-它的函数签名为:
+Iterator::any 函数接受一个闭包，它判断是否存在任一元素是否满足条件，返回布尔值. 它的函数签名为:
 
-```
+```text
 pub trait Iterator {
     // The type being iterated over.
     type Item;
@@ -293,7 +291,7 @@ pub trait Iterator {
 }
 ```
 
-```
+```text
 fn main() {
     let vec1 = vec![1, 2, 3];
     let vec2 = vec![4, 5, 6];
@@ -313,12 +311,11 @@ fn main() {
 }
 ```
 
-## Iterator::find
+### Iterator::find
 
-Iterator::find 函数接受一个闭包，查找集合中的元素，如果找到并返回第一个元素的值，否则返回 None.
-它的函数签名为:
+Iterator::find 函数接受一个闭包，查找集合中的元素，如果找到并返回第一个元素的值，否则返回 None. 它的函数签名为:
 
-```
+```text
 pub trait Iterator {
     // The type being iterated over.
     type Item;
@@ -333,7 +330,7 @@ pub trait Iterator {
 }
 ```
 
-```
+```text
 fn main() {
     let vec1 = vec![1, 2, 3];
     let vec2 = vec![4, 5, 6];
@@ -358,14 +355,13 @@ fn main() {
     // `into_iter()` for arrays unusually yields `&i32`
     println!("Find 2 in array2: {:?}", array2.into_iter().find(|&&x| x == 2));
 }
-
 ```
 
-# 高阶函数
+## 高阶函数
 
 高阶函数接受一个或多个函数，并返回相应的函数，实现了函数式的特性。Rust 可以像 javascript 那样支持链式调用，map/reduce 操作。
 
-```
+```text
 fn is_odd(n: u32) -> bool {
     n % 2 == 1
 }
@@ -402,19 +398,19 @@ fn main() {
 }
 ```
 
-# 发散函数(Diverging functions)
+## 发散函数\(Diverging functions\)
 
 发散函数永不返回。他们以！标记，这是一个空的类型.
 
-```
+```text
 fn foo() -> ! {
     panic!("This call never returns");
 }
 ```
 
-注意，它与返回()类型不同，它是永不返回的。
+注意，它与返回\(\)类型不同，它是永不返回的。
 
-```
+```text
 fn some_fn() {
     ()
 }
@@ -427,7 +423,7 @@ fn main() {
 
 这个函数看起来很奇怪，但是它却很有用，比如在 match 中为了匹配函数类型，发散类型可以匹配任意的类型，这样我们就可以这样写函数:
 
-```
+```text
 fn main() {
     fn sum_odd_numbers(up_to: u32) -> u32 {
         let mut acc = 0;
@@ -450,4 +446,5 @@ fn main() {
 }
 ```
 
-同时发散函数也是，无限循环(e.g:loop{})比如服务器或者进程终止(e.g:exit())的返回值。
+同时发散函数也是，无限循环\(e.g:loop{}\)比如服务器或者进程终止\(e.g:exit\(\)\)的返回值。
+

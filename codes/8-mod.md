@@ -1,17 +1,18 @@
-# 8 模块(Module)
+# 8 模块\(Module\)
 
-# 模块
+## 8 模块\(Module\)
 
-模块类似于 Java 或者 Go 的 package，它可以把不同文件的代码按照**逻辑**组织在一起，并且管理可见性(public/private)。
+## 模块
+
+模块类似于 Java 或者 Go 的 package，它可以把不同文件的代码按照**逻辑**组织在一起，并且管理可见性\(public/private\)。
 
 模块包含：函数，结构体，traits，impl 甚至包括其他模块。
 
-## 模块定义和使用
+### 模块定义和使用
 
-模块以 mod 开头，它声明了一个 _模块名字::_ 开头的命名空间.
-从下面的例子来看，其相对关系:
+模块以 mod 开头，它声明了一个 _模块名字::_ 开头的命名空间. 从下面的例子来看，其相对关系:
 
-```
+```text
 // A module named `my_mod`
 mod my_mod {
     // Items in modules default to private visibility.
@@ -134,11 +135,11 @@ fn main() {
 }
 ```
 
-## 模块中结构体可见性
+### 模块中结构体可见性
 
 模块中结构体的字段和 impl 中的函数会声明单独的可见性。
 
-```
+```text
 mod my {
     // A public struct with a public field of generic type `T`
     pub struct OpenBox<T> {
@@ -184,9 +185,9 @@ fn main() {
 }
 ```
 
-## 使用 use 来简化引用模块全路径
+### 使用 use 来简化引用模块全路径
 
-```
+```text
 mod deeply {
     pub mod nested {
         pub fn func() {
@@ -202,18 +203,15 @@ fn main() {
     func();
     other_func()
 }
-
-
 ```
 
 可以看出,还可以使用 as 重命名
 
-## supper 和 self
+### supper 和 self
 
-使用 super 直接引用上一级 mod 模块，使用 self 来引用本级 mod 中的函数或模块。
-举例来看:
+使用 super 直接引用上一级 mod 模块，使用 self 来引用本级 mod 中的函数或模块。 举例来看:
 
-```
+```text
 fn function() {
     println!("called `function()`");
 }
@@ -265,14 +263,13 @@ fn main() {
 }
 ```
 
-## 文件层级
+### 文件层级
 
-### 第一种方式，直接在 src 目录下创建同名的包
+#### 第一种方式，直接在 src 目录下创建同名的包
 
-文件代码见:[hirechy](https://github.com/dajuguan/rust_blockchain/tree/master/codes/src/hirechy)
-我们创建一个文件
+文件代码见:[hirechy](https://github.com/dajuguan/rust_blockchain/tree/master/codes/src/hirechy) 我们创建一个文件
 
-```
+```text
 cargo new hirechy
 cd hirechy/src
 touch my.rs
@@ -280,7 +277,7 @@ touch my.rs
 
 建立如下的目录:
 
-```
+```text
 .
 ├── Cargo.lock
 ├── Cargo.toml
@@ -291,7 +288,7 @@ touch my.rs
 
 文件名:my.rs
 
-```
+```text
 pub fn function() {
     println!("called my::function()");
 }
@@ -299,19 +296,18 @@ pub fn function() {
 
 文件名:main.rs
 
-```
+```text
 mod my;
 fn main() {
     my::function();
 }
 ```
 
-### 第二种方式，创建与包名相同的文件夹，并在该文件夹下创建 mod.rs 文件
+#### 第二种方式，创建与包名相同的文件夹，并在该文件夹下创建 mod.rs 文件
 
-同样我们创建相应的目录(文件代码见:[hirechy2](https://github.com/dajuguan/rust_blockchain/tree/master/codes/src/hirechy2)
-):
+同样我们创建相应的目录\(文件代码见:[hirechy2](https://github.com/dajuguan/rust_blockchain/tree/master/codes/src/hirechy2) \):
 
-```
+```text
 hirechy2
 ├── Cargo.lock
 ├── Cargo.toml
@@ -324,7 +320,7 @@ hirechy2
 
 文件 src/main.rs
 
-```
+```text
 mod my;
 fn main() {
     my::function();
@@ -334,7 +330,7 @@ fn main() {
 
 文件 my/mod.rs
 
-```
+```text
 pub mod nested;
 
 pub fn function() {
@@ -344,8 +340,9 @@ pub fn function() {
 
 文件 my/nested.rs
 
-```
+```text
 pub fn function() {
     println!("called my::nest::function()",);
 }
 ```
+
